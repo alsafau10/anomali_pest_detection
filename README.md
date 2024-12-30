@@ -15,8 +15,7 @@ Project ini bertujuan untuk mendeteksi anomali pada pest dalam berbagai jenis ta
 - Python 3.8 atau lebih tinggi
 - OpenCV
 - TensorFlow
-- Matplotlib
-- Pandas
+- NumPy
 
 ## Instalasi
 1. Clone repositori ini:
