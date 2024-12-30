@@ -1,0 +1,3 @@
+lizard
+mouse
+snake

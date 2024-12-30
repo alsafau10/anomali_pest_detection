@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='Web/style.css') }}"
+    />
+    <title>VISUAL KOMPUTER-PRODUK</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="logo">
+        <a href="{{ url_for('main') }}">
+          <h1>Anomali <span>kita cari</span></h1>
+        </a>
+      </div>
+    </header>
+
+    <section id="Home" class="Home">
+      <h1 class="title-section">Deteksi Anomali pada Rumah</h1>
+      <form
+        action="{{ url_for('predict') }}"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <div class="content img-container">
+          <div class="drag-area">
+            <div class="icon">
+              <i class="fas fa-images"></i>
+            </div>
+            <span class="header"
+              >Drag & Drop or <span class="button">browse</span></span
+            >
+            <input type="file" name="file" id="file" hidden />
+            <input type="hidden" name="image_base64" id="image_base64" />
+            <!-- Hidden input for base64 -->
+            <span class="support">Supports: JPEG, JPG, PNG</span>
+            <div id="preview-container">
+              <!-- Image preview will be displayed here -->
+            </div>
+          </div>
+          <label for="iou-slider"
+            >IoU Threshold: <span id="iou-value">0.5</span></label
+          >
+          <input
+            type="range"
+            name="iou_threshold"
+            id="iou-slider"
+            min="0.1"
+            max="1"
+            step="0.01"
+            value="0.5"
+          /><br />
+
+          <label for="nms-slider"
+            >NMS Threshold: <span id="nms-value">0.5</span></label
+          >
+          <input
+            type="range"
+            name="nms_threshold"
+            id="nms-slider"
+            min="0.1"
+            max="1"
+            step="0.01"
+            value="0.5"
+          /><br />
+
+          <div>
+            <button type="submit" class="submit">Submit</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="content img-result">
+        <div class="result-img">
+          {% if img_path %}
+          <img
+            src="static\image\result\{{img_path}}"
+            id="result-image"
+            alt="Processed Image"
+          />
+          <textarea name="" id="myArea">
+            {{detections.get_data(as_text=True)}}</textarea
+          >
+          {% endif %}
+        </div>
+      </div>
+      <div class="content model-download">
+        <button id="download-model-zip" class="submit">
+          Download gak sih modelnya
+        </button>
+      </div>
+    </section>
+
+    <script src="{{ url_for('static', filename='Web/index.js') }}"></script>
+  </body>
+</html>
